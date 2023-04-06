@@ -14,6 +14,8 @@ class App {
         this.port = port;
         const app = (0, express_1.default)();
         app.use(express_1.default.static(path_1.default.join(__dirname, '../client')));
+        app.use('/jquery', express_1.default.static(path_1.default.join(__dirname, '../../node_modules/jquery/dist')));
+        app.use('/bootstrap', express_1.default.static(path_1.default.join(__dirname, '../../node_modules/bootstrap/dist')));
         this.server = new http_1.default.Server(app);
         this.io = new socket_io_1.default.Server(this.server);
         this.game = new luckyNumbersGame_1.default();
