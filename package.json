@@ -1,0 +1,36 @@
+{
+  "name": "tssockminigames",
+  "version": "1.0.0",
+  "description": "minigames built using typescript and socketio",
+  "scripts": {
+    "dev": "concurrently -k \"tsc -p ./src/server -w\" \"tsc -p ./src/client -w\" \"nodemon ./dist/server/server.js\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OmarMWarraich/tssock-io-minigames.git"
+  },
+  "keywords": [
+    "typescript",
+    "socket.io"
+  ],
+  "author": "OmarMWarraich",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OmarMWarraich/tssock-io-minigames/issues"
+  },
+  "homepage": "https://github.com/OmarMWarraich/tssock-io-minigames#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.6.1",
+    "socket.io-client": "^4.6.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "@types/node": "^18.15.11",
+    "@types/socket.io-client": "^3.0.0",
+    "concurrently": "^7.6.0",
+    "nodemon": "^2.0.22",
+    "typescript": "^5.0.3"
+  }
+}
