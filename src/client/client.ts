@@ -8,9 +8,15 @@ type ScreenName = {
     abbreviation: string
 }
 
+type Player = {
+    score: number
+    screenName: ScreenName
+}
+
 class Client {
     private socket: SocketIOClient.Socket;
-    private screenName!: ScreenName
+    /* private screenName!: ScreenName */
+    private player!: Player
 
     constructor() {
         this.socket = io();
@@ -24,7 +30,13 @@ class Client {
             location.reload();
         });
 
-        this.socket.on('screenName', (screenName: ScreenName) => {
+        this.socket.on('playerDetails', (player: Player) => {
+            this.player = player;
+            $('#score').text(this.player.score);
+            $('#screenName').text(this.player.screenName.name);
+        });
+
+        /* this.socket.on('screenName', (screenName: ScreenName) => {
             this.screenName = screenName;
             $('#screenName').text(this.screenName.name);
         });
@@ -32,7 +44,7 @@ class Client {
         this.socket.on('screenName', (screenName: ScreenName) => {
             this.screenName = screenName;
             $('#screenName').text(this.screenName.name);
-        });
+        }); */
 
         this.socket.on('chatMessage', (chatMessage: ChatMessage) => {
             $('#messages').append(
@@ -77,17 +89,17 @@ class Client {
         if (messageText.toString().length > 0) {
             this.socket.emit('chatMessage', <ChatMessage>{
                 message: messageText,
-                from: this.screenName.abbreviation,
+                from: this.player.screenName.abbreviation,
             })
 
             $('#messages').append(
                 "<li><span class='float-right'><span class='circle'>" +
-                    this.screenName.abbreviation +
+                    this.player.screenName.abbreviation +
                     "</span></span><div class='myMessage'>" +
                     messageText +
                     '</div></li>'
             )
-            this.socket.emit('chatMessage', <ChatMessage>{
+            /* this.socket.emit('chatMessage', <ChatMessage>{
                 message: messageText,
                 from: 'AB',
             })
@@ -96,7 +108,7 @@ class Client {
                 "<li><span class='float-left'><span class='circle'>AB</span></span><div class='myMessage'>" +
                     messageText +
                     '</div></li>'
-            )
+            ) */
             this.scrollChatWindow()
 
             $('#messageText').val('')

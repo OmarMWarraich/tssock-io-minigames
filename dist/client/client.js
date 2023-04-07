@@ -20,14 +20,20 @@ class Client {
             console.log('Disconnected from server' + message);
             location.reload();
         });
-        this.socket.on('screenName', (screenName) => {
+        this.socket.on('playerDetails', (player) => {
+            this.player = player;
+            $('#score').text(this.player.score);
+            $('#screenName').text(this.player.screenName.name);
+        });
+        /* this.socket.on('screenName', (screenName: ScreenName) => {
             this.screenName = screenName;
             $('#screenName').text(this.screenName.name);
         });
-        this.socket.on('screenName', (screenName) => {
+
+        this.socket.on('screenName', (screenName: ScreenName) => {
             this.screenName = screenName;
             $('#screenName').text(this.screenName.name);
-        });
+        }); */
         this.socket.on('chatMessage', (chatMessage) => {
             $('#messages').append("<li><span class='float-right'><span class='circle'>" +
                 chatMessage.from +
@@ -52,20 +58,23 @@ class Client {
         if (messageText.toString().length > 0) {
             this.socket.emit('chatMessage', {
                 message: messageText,
-                from: this.screenName.abbreviation,
+                from: this.player.screenName.abbreviation,
             });
             $('#messages').append("<li><span class='float-right'><span class='circle'>" +
-                this.screenName.abbreviation +
+                this.player.screenName.abbreviation +
                 "</span></span><div class='myMessage'>" +
                 messageText +
                 '</div></li>');
-            this.socket.emit('chatMessage', {
+            /* this.socket.emit('chatMessage', <ChatMessage>{
                 message: messageText,
                 from: 'AB',
-            });
-            $('#messages').append("<li><span class='float-left'><span class='circle'>AB</span></span><div class='myMessage'>" +
-                messageText +
-                '</div></li>');
+            })
+
+            $('#messages').append(
+                "<li><span class='float-left'><span class='circle'>AB</span></span><div class='myMessage'>" +
+                    messageText +
+                    '</div></li>'
+            ) */
             this.scrollChatWindow();
             $('#messageText').val('');
         }
