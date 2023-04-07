@@ -15,6 +15,9 @@ class App {
     constructor(port) {
         this.games = {};
         this.players = {};
+        this.updateChat = (chatMessage) => {
+            this.io.emit('chatMessage', chatMessage);
+        };
         this.port = port;
         const app = (0, express_1.default)();
         app.use(express_1.default.static(path_1.default.join(__dirname, '../client')));
@@ -22,9 +25,9 @@ class App {
         app.use('/bootstrap', express_1.default.static(path_1.default.join(__dirname, '../../node_modules/bootstrap/dist')));
         this.server = new http_1.default.Server(app);
         this.io = new socket_io_1.default.Server(this.server);
-        this.games[0] = new luckyNumbersGame_1.default(0, 'Bronze Game', '🥉', 10);
-        this.games[1] = new luckyNumbersGame_1.default(1, 'Silver Game', '🥈', 16);
-        this.games[2] = new luckyNumbersGame_1.default(2, 'Gold Game', '🥇', 35);
+        this.games[0] = new luckyNumbersGame_1.default(0, 'Bronze Game', '🥉', 10, this.updateChat);
+        this.games[1] = new luckyNumbersGame_1.default(1, 'Silver Game', '🥈', 16, this.updateChat);
+        this.games[2] = new luckyNumbersGame_1.default(2, 'Gold Game', '🥇', 35, this.updateChat);
         this.randomScreenNameGenerator = new randomScreenNameGenerator_1.default();
         this.io.on('connection', (socket) => {
             console.log('a user connected : ' + socket.id);

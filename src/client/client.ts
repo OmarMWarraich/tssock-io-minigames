@@ -1,6 +1,7 @@
 type ChatMessage = {
-    message: string,
+    message: string
     from: string
+    type: 'playerMessage' | 'gameMessage'
 }
 
 type ScreenName = {
@@ -80,13 +81,23 @@ class Client {
         }); */
 
         this.socket.on('chatMessage', (chatMessage: ChatMessage) => {
-            $('#messages').append(
-                "<li><span class='float-right'><span class='circle'>" +
-                    chatMessage.from +
-                    "</span></span><div class='otherMessage'>" +
-                    chatMessage.message +
-                    '</div></li>'
-            )
+            if (chatMessage.type === 'gameMessage') {
+                $('#messages').append(
+                    "<li><span class='float-right'><span class='circle'>" +
+                        chatMessage.from +
+                        "</span></span><div class='gameMessage'>" +
+                        chatMessage.message +
+                        '</div></li>'
+                )
+            } else {
+                $('#messages').append(
+                    "<li><span class='float-right'><span class='circle'>" +
+                        chatMessage.from +
+                        "</span></span><div class='otherMessage'>" +
+                        chatMessage.message +
+                        '</div></li>'
+                )
+            }
             this.scrollChatWindow()
         })
 

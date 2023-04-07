@@ -1,4 +1,5 @@
 type ChatMessage = {
-    message: string,
+    message: string
     from: string
+    type: 'playerMessage' | 'gameMessage'
 }

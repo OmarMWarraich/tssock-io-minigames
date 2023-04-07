@@ -56,11 +56,20 @@ class Client {
             $('#screenName').text(this.screenName.name);
         }); */
         this.socket.on('chatMessage', (chatMessage) => {
-            $('#messages').append("<li><span class='float-right'><span class='circle'>" +
-                chatMessage.from +
-                "</span></span><div class='otherMessage'>" +
-                chatMessage.message +
-                '</div></li>');
+            if (chatMessage.type === 'gameMessage') {
+                $('#messages').append("<li><span class='float-right'><span class='circle'>" +
+                    chatMessage.from +
+                    "</span></span><div class='gameMessage'>" +
+                    chatMessage.message +
+                    '</div></li>');
+            }
+            else {
+                $('#messages').append("<li><span class='float-right'><span class='circle'>" +
+                    chatMessage.from +
+                    "</span></span><div class='otherMessage'>" +
+                    chatMessage.message +
+                    '</div></li>');
+            }
             this.scrollChatWindow();
         });
         $(document).ready(() => {

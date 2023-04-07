@@ -38,9 +38,29 @@ class App {
         this.server = new http.Server(app)
         this.io = new socketIO.Server(this.server)
 
-        this.games[0] = new LuckyNumbersGame(0, 'Bronze Game', '🥉', 10)
-        this.games[1] = new LuckyNumbersGame(1, 'Silver Game', '🥈', 16)
-        this.games[2] = new LuckyNumbersGame(2, 'Gold Game', '🥇', 35)
+        this.games[0] = new LuckyNumbersGame(
+            0,
+            'Bronze Game', 
+            '🥉', 
+            10,
+            this.updateChat
+        )
+
+        this.games[1] = new LuckyNumbersGame(
+            1,
+            'Silver Game', 
+            '🥈', 
+            16,
+            this.updateChat
+        )
+
+        this.games[2] = new LuckyNumbersGame(
+            2, 
+            'Gold Game', 
+            '🥇', 
+            35,
+            this.updateChat
+        )
 
         this.randomScreenNameGenerator = new RandomScreenNameGenerator()
 
@@ -74,6 +94,10 @@ class App {
                 this.games[2].gameState,
             ])
         }, 1000)
+    }
+
+    public updateChat = (chatMessage: ChatMessage) => {
+        this.io.emit('chatMessage', chatMessage)
     }
 
     public Start() {
