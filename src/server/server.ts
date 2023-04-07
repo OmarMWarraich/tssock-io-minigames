@@ -3,7 +3,7 @@ import path from 'path'
 import http from 'http'
 import socketIO from 'socket.io'
 import LuckyNumbersGame from './luckyNumbersGame'
-import RandomScreennNameGenerator from './randomScreenNameGenerator'
+import RandomScreenNameGenerator from './randomScreenNameGenerator'
 import Player from './player'
 
 const port: number = 3000
@@ -13,8 +13,8 @@ class App {
     private port: number
 
     private io: socketIO.Server
-    private game: LuckyNumbersGame
-    private randomScreenNameGenerator: RandomScreennNameGenerator
+    private games: { [id: number]: LuckyNumbersGame } = {}
+    private randomScreenNameGenerator: RandomScreenNameGenerator
     private players: { [id: string]: Player } = {}
 
     constructor(port: number) {
@@ -38,14 +38,16 @@ class App {
         this.server = new http.Server(app)
         this.io = new socketIO.Server(this.server)
 
-        this.game = new LuckyNumbersGame()
+        this.games[0] = new LuckyNumbersGame(0, 'Bronze Game', '🥉', 10)
+        this.games[1] = new LuckyNumbersGame(1, 'Silver Game', '🥈', 16)
+        this.games[2] = new LuckyNumbersGame(2, 'Gold Game', '🥇', 35)
 
-        this.randomScreenNameGenerator = new RandomScreennNameGenerator()
+        this.randomScreenNameGenerator = new RandomScreenNameGenerator()
 
         this.io.on('connection', (socket: socketIO.Socket) => {
             console.log('a user connected : ' + socket.id)
 
-            let screenName = this.randomScreenNameGenerator.generateRandomScreenName()
+            let screenName: ScreenName = this.randomScreenNameGenerator.generateRandomScreenName()
 
             this.players[socket.id] = new Player(screenName)
 
@@ -55,7 +57,7 @@ class App {
 
             socket.on('disconnect', function () {
                 console.log('socket disconnected : ' + socket.id)
-                if (socket.id in this.players) {
+                if (this.players && this.players[socket.id]) {
                     delete this.players[socket.id]
                 }
             })
@@ -64,6 +66,14 @@ class App {
                 socket.broadcast.emit('chatMessage', chatMessage)
             })
         })
+
+        setInterval(() => {
+            this.io.emit('GameStates', [
+                this.games[0].gameState,
+                this.games[1].gameState,
+                this.games[2].gameState,
+            ])
+        }, 1000)
     }
 
     public Start() {

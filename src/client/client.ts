@@ -13,6 +13,15 @@ type Player = {
     screenName: ScreenName
 }
 
+type GameState = {
+    id: number
+    title: string
+    logo: string
+    gamePhase: number
+    gameClock: number
+    duration: number
+}
+
 class Client {
     private socket: SocketIOClient.Socket;
     /* private screenName!: ScreenName */
@@ -30,10 +39,34 @@ class Client {
             location.reload();
         });
 
+        this.socket.on('GameStates', (gameStates: GameState[]) => {
+            gameStates.forEach((gameState) => {
+                let gid = gameState.id
+                if (gameState.gameClock >= 0) {
+                    if (gameState.gameClock >= gameState.duration) {
+                        $('#gamephase' +gid).text(
+                            'New Game, Guess the Lucky Number'
+                        )
+                    }
+                    $('#timer' +gid).css('display', 'block')
+                    $('#timer' +gid).text(gameState.gameClock.toString())
+                    var progressParent =
+                        (gameState.gameClock / gameState.duration) * 100
+                        $('#timerBar' +gid).css('background-color', '#4caf50')
+                        $('#timerBar' +gid).css('width', progressParent + '%')
+                } else {
+                    $('#timerBar' +gid).css('background-color', '#ff0000')
+                    $('#timerBar' +gid).css('width', '100%')
+                    $('#timer' +gid).css('display', 'none')
+                    $('#gamephase' +gid).text('Game Over')
+                }
+            })
+        })
+
         this.socket.on('playerDetails', (player: Player) => {
             this.player = player;
-            $('#score').text(this.player.score);
             $('#screenName').text(this.player.screenName.name);
+            $('#score').text(this.player.score);
         });
 
         /* this.socket.on('screenName', (screenName: ScreenName) => {
@@ -114,7 +147,6 @@ class Client {
             $('#messageText').val('')
         }
     }
-
 
     public showGame(id: number) {
         switch (id) {

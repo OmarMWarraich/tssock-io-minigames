@@ -7,6 +7,31 @@
     <title>TypeScript Socket.IO Course</title>
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
     <style>
+        .timer {
+            font-size: 4em;
+            position: absolute;
+            right: 15px;
+            top: -15px;
+        }
+
+        .gamephase {
+            font-size: 1.5em;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 8px;
+            background: #ccc;
+            margin-top: 40px;
+            border: solid 1px gray;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: #4caf50;
+        }
+
         .gamePanel {
             position: relative;
             border: solid 1px gray;
@@ -182,6 +207,11 @@
             <div class="col-sm-8">
                 <div class="gamePanel" id="gamePanel0">
                     <h2 id="gameTitle">🥉Bronze Game</h2>
+                    <span id="timer0" class="timer"></span>
+                    <div class="progress-container">
+                        <div class="progress-bar" id="timerBar0"></div>
+                    </div>
+                    <div id="gamephase0" class="gamephase p-2"></div>
                     <div class="p-2">
                         Your Screen Name is
                         <span class="screenName"></span>, and your score is
@@ -190,6 +220,11 @@
                 </div>
                 <div class="gamePanel" id="gamePanel1">
                     <h2 id="gameTitle">🥈Silver Game</h2>
+                    <span id="timer1" class="timer"></span>
+                    <div class="progress-container">
+                        <div class="progress-bar" id="timerBar1"></div>
+                    </div>
+                    <div id="gamephase1" class="gamephase p-2"></div>
                     <div class="p-2">
                         Your Screen Name is
                         <span class="screenName"></span>, and your score is
@@ -198,6 +233,11 @@
                 </div>
                 <div class="gamePanel" id="gamePanel2">
                     <h2 id="gameTitle">🥇Gold Game</h2>
+                    <span id="timer2" class="timer"></span>
+                    <div class="progress-container">
+                        <div class="progress-bar" id="timerBar2"></div>
+                    </div>
+                    <div id="gamephase2" class="gamephase p-2"></div>
                     <div class="p-2">
                         Your Screen Name is
                         <span class="screenName"></span>, and your score is
