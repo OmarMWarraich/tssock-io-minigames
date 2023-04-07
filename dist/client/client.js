@@ -2,6 +2,7 @@
 class Client {
     constructor() {
         this.inThisRound = [false, false, false];
+        this.alertedWinnersLoosers = [false, false, false];
         this.scrollChatWindow = () => {
             $('#messages').animate({
                 scrollTop: $('#messages li:last-child').position().top,
@@ -27,12 +28,19 @@ class Client {
                 if (gameState.gameClock >= 0) {
                     if (gameState.gameClock >= gameState.duration) {
                         $('#gamephase' + gid).text('New Game, Guess the Lucky Number');
+                        this.alertedWinnersLoosers[gid] = false;
                         for (let x = 0; x < 10; x++) {
                             $('#submitButton' + gid + x).prop('disabled', false);
                         }
                     }
                     if (gameState.gameClock === gameState.duration - 5) {
                         $('#resultAlert' + gid)
+                            .alert()
+                            .fadeOut(500);
+                        $('#winnerAlert' + gid)
+                            .alert()
+                            .fadeOut(500);
+                        $('#looserAlert' + gid)
                             .alert()
                             .fadeOut(500);
                     }
@@ -58,6 +66,18 @@ class Client {
                         setTimeout(() => {
                             $('#submitButton' + gid + (gameState.result - 1)).css('animation', '');
                         }, 4000);
+                    }
+                    if (this.inThisRound[gid] &&
+                        !this.alertedWinnersLoosers[gid] &&
+                        gameState.winnersCalculated) {
+                        this.inThisRound[gid] = false;
+                        if (gameState.winners.includes(this.socket.id)) {
+                            $('#winnerAlert' + gid).fadeIn(100);
+                        }
+                        else {
+                            $('#looserAlert' + gid).fadeIn(100);
+                        }
+                        this.alertedWinnersLoosers[gid] = true;
                     }
                 }
             });
@@ -106,6 +126,12 @@ class Client {
             $('#resultAlert0').alert().hide();
             $('#resultAlert1').alert().hide();
             $('#resultAlert2').alert().hide();
+            $('#winnerAlert0').alert().hide();
+            $('#winnerAlert1').alert().hide();
+            $('#winnerAlert2').alert().hide();
+            $('#looserAlert0').alert().hide();
+            $('#looserAlert1').alert().hide();
+            $('#looserAlert2').alert().hide();
             $('#messageText').keypress((e) => {
                 var key = e.which;
                 if (key == 13) {
