@@ -18,6 +18,16 @@
             font-size: 1.5em;
         }
 
+        .playerGuess {
+            font-size: 1.5em;
+        }
+
+        .goodLuckMessage {
+            font-size: 1.5em;
+            padding-left: 10px;
+            display: none;
+        }
+
         .progress-container {
             width: 100%;
             height: 8px;
@@ -185,6 +195,23 @@
         .footer {
             margin-top: 10px;
         }
+
+        @keyframes glowing {
+            0% {
+                background-color: #2ba805;
+                box-shadow: 0 0 5px #2ba805;
+            }
+
+            50% {
+                background-color: #ff0080;
+                box-shadow: 0 0 20px #ffa600;
+            }
+
+            100% {
+                background-color: #2ba805;
+                box-shadow: 0 0 5px #2ba805;
+            }
+        }
     </style>
 
 </head>
@@ -256,6 +283,82 @@
                         <span class="screenName"></span>, and your score is
                         <span class="score"></span>
                     </div>
+                    <div class="p-2">
+                        Your guesses
+                        <button
+                            class="button btn btn-success"
+                            onClick="client.submitGuess(0,1)"
+                            id="submitButton00"
+                        >
+                            1
+                        </button>
+                        <button
+                            class="button btn btn-success"
+                            onClick="client.submitGuess(0,2)"
+                            id="submitButton01"
+                        >
+                            2
+                        </button>
+                        <button
+                            class="button btn btn-success"
+                            onClick="client.submitGuess(0,3)"
+                            id="submitButton02"
+                        >
+                            3
+                        </button>
+                        <button
+                            class="button btn btn-success"
+                            onClick="client.submitGuess(0,4)"
+                            id="submitButton03"
+                        >
+                            4
+                        </button>
+                        <button
+                            class="button btn btn-success"
+                            onClick="client.submitGuess(0,5)"
+                            id="submitButton04"
+                        >
+                            5
+                        </button>
+                        <button
+                            class="button btn btn-success"
+                            onClick="client.submitGuess(0,6)"
+                            id="submitButton05"
+                        >
+                            6
+                        </button>
+                        <button
+                            class="button btn btn-success"
+                            onClick="client.submitGuess(0,7)"
+                            id="submitButton06"
+                        >
+                            7
+                        </button>
+                        <button
+                            class="button btn btn-success"
+                            onClick="client.submitGuess(0,8)"
+                            id="submitButton07"
+                        >
+                            8
+                        </button>
+                        <button
+                            class="button btn btn-success"
+                            onClick="client.submitGuess(0,9)"
+                            id="submitButton08"
+                        >
+                            9
+                        </button>
+                        <button
+                            class="button btn btn-success"
+                            onClick="client.submitGuess(0,10)"
+                            id="submitButton09"
+                        >
+                            10
+                        </button>
+                        <span id="goodLuckMessage0" class="goodLuckMessage"
+                            >Good Luck 🤞</span
+                        >
+                    </div>
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="m-2">
@@ -283,6 +386,82 @@
                         <span class="screenName"></span>, and your score is
                         <span class="score"></span>
                     </div>
+                    <div class="p-2">
+                        Your guesses
+                        <button
+                            class="button btn btn-success"
+                            onClick="client.submitGuess(0,1)"
+                            id="submitButton00"
+                        >
+                            1
+                        </button>
+                        <button
+                            class="button btn btn-success"
+                            onClick="client.submitGuess(0,2)"
+                            id="submitButton01"
+                        >
+                            2
+                        </button>
+                        <button
+                            class="button btn btn-success"
+                            onClick="client.submitGuess(0,3)"
+                            id="submitButton02"
+                        >
+                            3
+                        </button>
+                        <button
+                            class="button btn btn-success"
+                            onClick="client.submitGuess(0,4)"
+                            id="submitButton03"
+                        >
+                            4
+                        </button>
+                        <button
+                            class="button btn btn-success"
+                            onClick="client.submitGuess(0,5)"
+                            id="submitButton04"
+                        >
+                            5
+                        </button>
+                        <button
+                            class="button btn btn-success"
+                            onClick="client.submitGuess(0,6)"
+                            id="submitButton05"
+                        >
+                            6
+                        </button>
+                        <button
+                            class="button btn btn-success"
+                            onClick="client.submitGuess(0,7)"
+                            id="submitButton06"
+                        >
+                            7
+                        </button>
+                        <button
+                            class="button btn btn-success"
+                            onClick="client.submitGuess(0,8)"
+                            id="submitButton07"
+                        >
+                            8
+                        </button>
+                        <button
+                            class="button btn btn-success"
+                            onClick="client.submitGuess(0,9)"
+                            id="submitButton08"
+                        >
+                            9
+                        </button>
+                        <button
+                            class="button btn btn-success"
+                            onClick="client.submitGuess(0,10)"
+                            id="submitButton09"
+                        >
+                            10
+                        </button>
+                        <span id="goodLuckMessage0" class="goodLuckMessage"
+                            >Good Luck 🤞</span
+                        >
+                    </div>
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="m-2">
@@ -309,6 +488,82 @@
                         Your Screen Name is
                         <span class="screenName"></span>, and your score is
                         <span class="score"></span>
+                    </div>
+                    <div class="p-2">
+                        Your guesses
+                        <button
+                            class="button btn btn-success"
+                            onClick="client.submitGuess(0,1)"
+                            id="submitButton00"
+                        >
+                            1
+                        </button>
+                        <button
+                            class="button btn btn-success"
+                            onClick="client.submitGuess(0,2)"
+                            id="submitButton01"
+                        >
+                            2
+                        </button>
+                        <button
+                            class="button btn btn-success"
+                            onClick="client.submitGuess(0,3)"
+                            id="submitButton02"
+                        >
+                            3
+                        </button>
+                        <button
+                            class="button btn btn-success"
+                            onClick="client.submitGuess(0,4)"
+                            id="submitButton03"
+                        >
+                            4
+                        </button>
+                        <button
+                            class="button btn btn-success"
+                            onClick="client.submitGuess(0,5)"
+                            id="submitButton04"
+                        >
+                            5
+                        </button>
+                        <button
+                            class="button btn btn-success"
+                            onClick="client.submitGuess(0,6)"
+                            id="submitButton05"
+                        >
+                            6
+                        </button>
+                        <button
+                            class="button btn btn-success"
+                            onClick="client.submitGuess(0,7)"
+                            id="submitButton06"
+                        >
+                            7
+                        </button>
+                        <button
+                            class="button btn btn-success"
+                            onClick="client.submitGuess(0,8)"
+                            id="submitButton07"
+                        >
+                            8
+                        </button>
+                        <button
+                            class="button btn btn-success"
+                            onClick="client.submitGuess(0,9)"
+                            id="submitButton08"
+                        >
+                            9
+                        </button>
+                        <button
+                            class="button btn btn-success"
+                            onClick="client.submitGuess(0,10)"
+                            id="submitButton09"
+                        >
+                            10
+                        </button>
+                        <span id="goodLuckMessage0" class="goodLuckMessage"
+                            >Good Luck 🤞</span
+                        >
                     </div>
                     <div class="row">
                         <div class="col-sm-4">

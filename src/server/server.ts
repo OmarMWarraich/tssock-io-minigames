@@ -43,6 +43,8 @@ class App {
             'Bronze Game', 
             '🥉', 
             10,
+            1,
+            this.players,
             this.updateChat
         )
 
@@ -51,6 +53,8 @@ class App {
             'Silver Game', 
             '🥈', 
             16,
+            2,
+            this.players,
             this.updateChat
         )
 
@@ -59,6 +63,8 @@ class App {
             'Gold Game', 
             '🥇', 
             35,
+            10,
+            this.players,
             this.updateChat
         )
 
@@ -84,6 +90,19 @@ class App {
 
             socket.on('chatMessage', (chatMessage: ChatMessage) => {
                 socket.broadcast.emit('chatMessage', chatMessage)
+            })
+
+            socket.on('submitGuess', (gameId: number, guess: number) => {
+                if (guess >= 0 && guess <= 10) {
+                    if (this.games[gameId].submitGuess(socket.id, guess)) {
+                        socket.emit(
+                            'confirmGuess',
+                            gameId,
+                            guess,
+                            this.players[socket.id].player.score
+                        )
+                    }
+                }
             })
         })
 

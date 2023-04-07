@@ -1,6 +1,7 @@
 "use strict";
 class Client {
     constructor() {
+        this.inThisRound = [false, false, false];
         this.scrollChatWindow = () => {
             $('#messages').animate({
                 scrollTop: $('#messages li:last-child').position().top,
@@ -26,6 +27,9 @@ class Client {
                 if (gameState.gameClock >= 0) {
                     if (gameState.gameClock >= gameState.duration) {
                         $('#gamephase' + gid).text('New Game, Guess the Lucky Number');
+                        for (let x = 0; x < 10; x++) {
+                            $('#submitButton' + gid + x).prop('disabled', false);
+                        }
                     }
                     if (gameState.gameClock === gameState.duration - 5) {
                         $('#resultAlert' + gid)
@@ -43,9 +47,17 @@ class Client {
                     $('#timerBar' + gid).css('width', '100%');
                     $('#timer' + gid).css('display', 'none');
                     $('#gamephase' + gid).text('Game Over');
+                    for (let x = 0; x < 10; x++) {
+                        $('#submitButton' + gid + x).prop('disabled', true);
+                    }
+                    $('#goodLuckMessage' + gid).css('display', 'none');
                     if (gameState.gameClock === -2 && gameState.result !== -1) {
                         $('#resultValue' + gid).text(gameState.result);
                         $('#resultAlert' + gid).fadeIn(100);
+                        $('#submitButton' + gid + (gameState.result - 1)).css('animation', 'glowing 1000ms infinite');
+                        setTimeout(() => {
+                            $('#submitButton' + gid + (gameState.result - 1)).css('animation', '');
+                        }, 4000);
                     }
                 }
             });
@@ -54,6 +66,12 @@ class Client {
             this.player = player;
             $('#screenName').text(this.player.screenName.name);
             $('#score').text(this.player.score);
+        });
+        this.socket.on('confirmGuess', (gameId, guess, score) => {
+            this.inThisRound[gameId] = true;
+            $('#submitButton' + gameId + (guess - 1)).prop('disabled', true);
+            $('#goodLuckMessage' + gameId).css('display', 'inline-block');
+            $('#score').text(score);
         });
         /* this.socket.on('screenName', (screenName: ScreenName) => {
             this.screenName = screenName;
@@ -97,6 +115,9 @@ class Client {
                 }
             });
         });
+    }
+    submitGuess(gameId, guess) {
+        this.socket.emit('submitGuess', gameId, guess);
     }
     sendMessage() {
         let messageText = $('#messageText').val();
