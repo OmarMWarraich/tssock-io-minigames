@@ -24,6 +24,9 @@ class App {
             socket.on('disconnect', function () {
                 console.log('socket disconnected : ' + socket.id);
             });
+            socket.on('chatMessage', (chatMessage) => {
+                socket.broadcast.emit('chatMessage', chatMessage);
+            });
         });
     }
     Start() {
