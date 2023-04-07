@@ -4,6 +4,7 @@ class LuckyNumbersGame {
     constructor(id, title, logo, duration, updateChatCallback) {
         this._gamePhase = 0;
         this._gameClock = 0;
+        this._result = -1;
         this._id = id;
         this._title = title;
         this._logo = logo;
@@ -30,7 +31,15 @@ class LuckyNumbersGame {
                 }
             }
             else if (this._gamePhase === 2) {
-                if (this._gameClock <= -5) {
+                if (this._gameClock === -2) {
+                    this._result = Math.floor(Math.random() * 10) + 1;
+                    this._updateChatCallback({
+                        message: 'The Lucky Number is ' + this._result,
+                        from: this._logo,
+                        type: 'gameMessage'
+                    });
+                }
+                else if (this._gameClock <= -5) {
                     this._gamePhase = 0;
                 }
             }
@@ -40,7 +49,8 @@ class LuckyNumbersGame {
                 logo: this._logo,
                 gamePhase: this._gamePhase,
                 gameClock: this._gameClock,
-                duration: this._duration
+                duration: this._duration,
+                result: this._result
             };
             this._gameClock -= 1;
         }, 1000);

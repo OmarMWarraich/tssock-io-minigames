@@ -27,6 +27,11 @@ class Client {
                     if (gameState.gameClock >= gameState.duration) {
                         $('#gamephase' + gid).text('New Game, Guess the Lucky Number');
                     }
+                    if (gameState.gameClock === gameState.duration - 5) {
+                        $('#resultAlert' + gid)
+                            .alert()
+                            .fadeOut(500);
+                    }
                     $('#timer' + gid).css('display', 'block');
                     $('#timer' + gid).text(gameState.gameClock.toString());
                     var progressParent = (gameState.gameClock / gameState.duration) * 100;
@@ -38,6 +43,10 @@ class Client {
                     $('#timerBar' + gid).css('width', '100%');
                     $('#timer' + gid).css('display', 'none');
                     $('#gamephase' + gid).text('Game Over');
+                    if (gameState.gameClock === -2 && gameState.result !== -1) {
+                        $('#resultValue' + gid).text(gameState.result);
+                        $('#resultAlert' + gid).fadeIn(100);
+                    }
                 }
             });
         });
@@ -73,6 +82,12 @@ class Client {
             this.scrollChatWindow();
         });
         $(document).ready(() => {
+            $('#resultValue0').addClass('spinner');
+            $('#resultValue1').addClass('spinner');
+            $('#resultValue2').addClass('spinner');
+            $('#resultAlert0').alert().hide();
+            $('#resultAlert1').alert().hide();
+            $('#resultAlert2').alert().hide();
             $('#messageText').keypress((e) => {
                 var key = e.which;
                 if (key == 13) {

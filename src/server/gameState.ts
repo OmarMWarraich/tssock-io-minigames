@@ -5,4 +5,5 @@ type GameState = {
     gamePhase: number
     gameClock: number
     duration: number
+    result: number
 }
