@@ -28,7 +28,7 @@ class LuckyNumbersGame {
                 this._updateChatCallBack({
                     message: 'New Game, Guess the Lucky Number',
                     from: this._logo,
-                    type: 'gameMessage'
+                    type: 'gameMessage',
                 });
             }
             else if (this._gamePhase === 1) {
@@ -37,7 +37,7 @@ class LuckyNumbersGame {
                     this._updateChatCallBack({
                         message: 'Game Over, No Winner',
                         from: this._logo,
-                        type: 'gameMessage'
+                        type: 'gameMessage',
                     });
                 }
             }
@@ -47,7 +47,7 @@ class LuckyNumbersGame {
                     this._updateChatCallBack({
                         message: 'The Lucky Number is ' + this._result,
                         from: this._logo,
-                        type: 'gameMessage'
+                        type: 'gameMessage',
                     });
                 }
                 else if (this._gameClock === -3) {
@@ -72,7 +72,7 @@ class LuckyNumbersGame {
                 duration: this._duration,
                 result: this._result,
                 winners: this._winners,
-                winnersCalculated: this._winnersCalculated
+                winnersCalculated: this._winnersCalculated,
             };
             this._gameClock -= 1;
         }, 1000);

@@ -50,7 +50,7 @@ export default class LuckyNumbersGame {
                 this._updateChatCallBack(<ChatMessage>{
                     message: 'New Game, Guess the Lucky Number',
                     from: this._logo,
-                    type: 'gameMessage'
+                    type: 'gameMessage',
                 })
             } else if (this._gamePhase === 1) {
                 if (this._gameClock < 0) {
@@ -58,7 +58,7 @@ export default class LuckyNumbersGame {
                     this._updateChatCallBack(<ChatMessage>{
                         message: 'Game Over, No Winner',
                         from: this._logo,
-                        type: 'gameMessage'
+                        type: 'gameMessage',
                 })
             }
             } else if (this._gamePhase === 2) {
@@ -67,7 +67,7 @@ export default class LuckyNumbersGame {
                     this._updateChatCallBack(<ChatMessage>{
                         message: 'The Lucky Number is ' + this._result,
                         from: this._logo,
-                        type: 'gameMessage'
+                        type: 'gameMessage',
                     })
                 } else if (this._gameClock === -3) {
                     //get winners
@@ -90,7 +90,7 @@ export default class LuckyNumbersGame {
                 duration: this._duration,
                 result: this._result,
                 winners: this._winners,
-                winnersCalculated: this._winnersCalculated
+                winnersCalculated: this._winnersCalculated,
             }
             this._gameClock -= 1
         }, 1000)

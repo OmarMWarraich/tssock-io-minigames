@@ -121,8 +121,8 @@ class Client {
 
         this.socket.on('playerDetails', (player: Player) => {
             this.player = player;
-            $('#screenName').text(this.player.screenName.name);
-            $('#score').text(this.player.score);
+            $('.screenName').text(player.screenName.name);
+            $('.score').text(player.score);
         });
 
         this.socket.on(
@@ -131,24 +131,14 @@ class Client {
                 this.inThisRound[gameId] = true
                 $('#submitButton' + gameId + (guess - 1)).prop('disabled', true)
                 $('#goodLuckMessage' + gameId).css('display', 'inline-block')
-                $('#score').text(score)
+                $('.score').text(score)
             }    
         )
-
-        /* this.socket.on('screenName', (screenName: ScreenName) => {
-            this.screenName = screenName;
-            $('#screenName').text(this.screenName.name);
-        });
-
-        this.socket.on('screenName', (screenName: ScreenName) => {
-            this.screenName = screenName;
-            $('#screenName').text(this.screenName.name);
-        }); */
 
         this.socket.on('chatMessage', (chatMessage: ChatMessage) => {
             if (chatMessage.type === 'gameMessage') {
                 $('#messages').append(
-                    "<li><span class='float-right'><span class='circle'>" +
+                    "<li><span class='float-left'><span class='circle'>" +
                         chatMessage.from +
                         "</span></span><div class='gameMessage'>" +
                         chatMessage.message +
@@ -225,16 +215,7 @@ class Client {
                     messageText +
                     '</div></li>'
             )
-            /* this.socket.emit('chatMessage', <ChatMessage>{
-                message: messageText,
-                from: 'AB',
-            })
 
-            $('#messages').append(
-                "<li><span class='float-left'><span class='circle'>AB</span></span><div class='myMessage'>" +
-                    messageText +
-                    '</div></li>'
-            ) */
             this.scrollChatWindow()
 
             $('#messageText').val('')
