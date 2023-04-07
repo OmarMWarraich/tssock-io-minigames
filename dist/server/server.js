@@ -8,6 +8,7 @@ const path_1 = __importDefault(require("path"));
 const http_1 = __importDefault(require("http"));
 const socket_io_1 = __importDefault(require("socket.io"));
 const luckyNumbersGame_1 = __importDefault(require("./luckyNumbersGame"));
+const randomScreenNameGenerator_1 = __importDefault(require("./randomScreenNameGenerator"));
 const port = 3000;
 class App {
     constructor(port) {
@@ -19,8 +20,11 @@ class App {
         this.server = new http_1.default.Server(app);
         this.io = new socket_io_1.default.Server(this.server);
         this.game = new luckyNumbersGame_1.default();
+        this.randomScreenNameGenerator = new randomScreenNameGenerator_1.default();
         this.io.on('connection', (socket) => {
             console.log('a user connected : ' + socket.id);
+            let screenName = this.randomScreenNameGenerator.generateRandomScreenName();
+            socket.emit('screenName', screenName);
             socket.on('disconnect', function () {
                 console.log('socket disconnected : ' + socket.id);
             });

@@ -3,6 +3,7 @@ import path from 'path'
 import http from 'http'
 import socketIO from 'socket.io'
 import LuckyNumbersGame from './luckyNumbersGame'
+import RandomScreennNameGenerator from './randomScreenNameGenerator'
 
 const port: number = 3000
 
@@ -12,6 +13,7 @@ class App {
 
     private io: socketIO.Server
     private game: LuckyNumbersGame
+    private randomScreenNameGenerator: RandomScreennNameGenerator
 
     constructor(port: number) {
         this.port = port
@@ -36,8 +38,14 @@ class App {
 
         this.game = new LuckyNumbersGame()
 
+        this.randomScreenNameGenerator = new RandomScreennNameGenerator()
+
         this.io.on('connection', (socket: socketIO.Socket) => {
             console.log('a user connected : ' + socket.id)
+
+            let screenName = this.randomScreenNameGenerator.generateRandomScreenName()
+
+            socket.emit('screenName', screenName)
 
             socket.on('disconnect', function () {
                 console.log('socket disconnected : ' + socket.id)
