@@ -6,6 +6,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TypeScript Socket.IO Course</title>
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+    <style>
+        .gamePanel {
+            position: relative;
+            border: solid 1px gray;
+            height: 382px;
+            border-radius: 0px 20px 4px 20px;
+            box-shadow: 15px 10px #dddddd;
+        }
+
+        #gamePanel0 {
+            display: block;
+            background: linear-gradient(
+                180deg,
+                rgba(195, 112, 34, 0.164) 0%,
+                rgba(156, 200, 105, 0.495) 100%
+            );
+        }
+
+        #gamePanel1 {
+            display: none;
+            background: linear-gradient(
+                56deg,
+                rgba(225, 238, 255, 0.492) 0%,
+                rgba(122, 67, 250, 0.495) 100%
+            );
+        }
+
+        #gamePanel2 {
+            display: none;
+            background: linear-gradient(
+                56deg,
+                rgba(235, 204, 32, 0.492) 0%,
+                rgba(251, 188, 106, 0.495) 100%
+            );
+        }
+
+        .chatPanel {
+            border: solid 1px gray;
+            border-radius: 20px 0px 4px 4px;
+            box-shadow: 15px 10px #dddddd;
+            background: rgb(34, 193, 195);
+            background: linear-gradient(
+                56deg,
+                rgba(34, 193, 195, 0.49193275943189773) 0%,
+                rgba(253, 187, 45, 0.494733879880077) 100%
+            );
+            position: relative;
+        }
+
+        .chatMessageInputDiv {
+            position: absolute;
+            bottom: 0px;
+            width: 100%;
+        }
+
+        .messages {
+            padding-left: 0;
+            overflow: hidden;
+            height: 340px;
+            margin-bottom: 40px;
+        }
+
+        .jumbotron {
+            margin-top: -40px;
+            height: 180px;
+        }
+
+        .footer {
+            margin-top: 10px;
+        }
+    </style>
+
 </head>
 <body>
     <div class="jumbotron text-center">
